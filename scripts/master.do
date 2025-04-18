@@ -1,4 +1,4 @@
-cd "C:\Users\toplu\Documents\GithubRepositories\mortality_burden"
+cd "C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms"
 
 timer clear
 
@@ -7,19 +7,19 @@ timer on 1
 
 // 00 - PREP
 timer on 2
-do "scripts/state_v1/01-prep-lags.do"
+do "scripts/01-prep-lags.do"
 timer off 2
 timer list 2
 
 // 01 - REGRESSION
 timer on 3
-do "scripts/state_v1/02-run-regressions.do"
+do "scripts/02-run-regressions.do"
 timer off 3
 timer list 3
 
 // 02 - MORTALITY ESTIMATION
 timer on 4
-do "scripts/state_v1/03-mortality-predictions.do"
+do "scripts/03-mortality-predictions.do"
 timer off 4
 timer list 4
 
