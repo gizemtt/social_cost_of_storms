@@ -38,7 +38,8 @@ foreach Y of loc outcome_list {
 			i.stfips#c.tavg i.stfips#c.tavg_2 ///
 			i.modate ///
 		)
-
+	estimates save output/beta/m_linear_tdths_ttpop.ster, replace
+	
 	local model_list "m_linear"
 	foreach m of loc model_list {
 		
