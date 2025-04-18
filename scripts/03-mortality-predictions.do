@@ -102,7 +102,7 @@ if "`Y'"=="tdths_ttpop" {
 } // end of "`fixedpop'" == "4"
 
 replace mort = 0 if mort<0 // Trucate the negatives
-replace mort = . if modate < 601 // 817 since have incomplete history of storms for dates before 1950
+replace mort = . if modate < 817 // since have incomplete history of storms for dates before 1968
 
 preserve 
 drop beta_L*
