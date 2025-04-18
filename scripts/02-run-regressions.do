@@ -17,7 +17,7 @@ forvalues i = 1/8 {
 *temperature nonlinearity
 gen tavg_2 = tavg^2
 
-egen _im_ = group(stfips month)
+egen _im_ = group(countyfips month)
 
 //--------------------------------------------------Run regressions
 
@@ -29,13 +29,13 @@ foreach Y of loc outcome_list {
 
 	reghdfe tdths_ttpop _LL*_maxs, ///
 		absorb( ///
-			i.stfips#i.month ///
-			i.stfips#c.modate_1 i.stfips#c.modate_2 ///
-			i.stfips#c.modate_3 i.stfips#c.modate_4 ///
-			i.stfips#c.modate_5 i.stfips#c.modate_6 ///
-			i.stfips#c.modate_7 i.stfips#c.modate_8 ///
+			i.countyfips#i.month ///
+			i.countyfips#c.modate_1 i.countyfips#c.modate_2 ///
+			i.countyfips#c.modate_3 i.countyfips#c.modate_4 ///
+			i.countyfips#c.modate_5 i.countyfips#c.modate_6 ///
+			i.countyfips#c.modate_7 i.countyfips#c.modate_8 ///
 			i._im_#c.modate_1 ///
-			i.stfips#c.tavg i.stfips#c.tavg_2 ///
+			i.countyfips#c.tavg i.countyfips#c.tavg_2 ///
 			i.modate ///
 		)
 	estimates save output/beta/m_linear_tdths_ttpop.ster, replace

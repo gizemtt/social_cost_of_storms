@@ -3,22 +3,31 @@
 //------------------------------------------------------------------------------
 
 //monthly data during 1851-2015
-use data/DATA_hurricane_mortality_temp_month_state_19302015_state.dta, clear
+use data/DATA_hurricane_mortality_temp_month_county_19482018.dta, clear
+
+destring countyfips, replace force
+destring stfips, replace force
+
+sort countyfips modate
 
 keep if inlist(stfips, 48, 22) // 🔸 Keep only Texas data
 
-gen cluster_label = "CLUSTER_" + string(stfips, "%02.0f")
+gen cluster_label = "CLUSTER_" + string(countyfips, "%02.0f")
 
 //----------------------------------------- constructing normal lags
+* Forward lags: _FF54_maxs, ..., _FF1_maxs
 forvalues i = 54(-1)1 {
-	quietly{
-	gen _FF`i'_maxs= F`i'.maxs
+	quietly {
+		gen _FF`i'_maxs = .
+		bysort countyfips (modate): replace _FF`i'_maxs = maxs[_n + `i']
 	}
 }
 
+* Backward lags: _LL0_maxs, ..., _LL180_maxs
 forvalues i = 0/180 {
-	quietly{
-	gen _LL`i'_maxs= L`i'.maxs
+	quietly {
+		gen _LL`i'_maxs = .
+		bysort countyfips (modate): replace _LL`i'_maxs = maxs[_n - `i']
 	}
 }
 
@@ -48,7 +57,7 @@ save "output/population_data_for_plotting.dta", replace
 //-------------------------------------------------------------saving state quartile 
 
 use "output/full_data_for_regression.dta", clear
-egen maxs_mean_st = mean(maxs), by(stfips)
+egen maxs_mean_st = mean(maxs), by(countyfips)
 
 xtile pct = maxs_mean_st, n(4)
 collapse (mean) pct, by(cluster_label)
@@ -57,14 +66,19 @@ save output/pct_maxs.dta, replace
 
 //monthly data during 1851-2015
 
-insheet using "data/panel_by_storm__NA_USA_density_8_yr_1930_2018_state.csv", clear
+insheet using "data/panel_by_storm__NA_USA_density_8_yr_1930_2018.csv", clear
+destring countyfips, replace force
+destring stfips, replace force
 keep if inlist(stfips, 48, 22) // 🔸 Keep only Texas data
+
+rename stormid storm_serial_id
+rename stormname storm_name
 
 gen modate = (year-1900)*12 + month
 lab var modate "months since jan 1900 = 1"
 drop if year < 1953 | year > 2015
 
-gen cluster_label = "CLUSTER_" + string(stfips, "%02.0f")
+gen cluster_label = "CLUSTER_" + string(countyfips, "%02.0f")
 
 rename cluster_label cluster_label_cap
 gen cluster_label = upper(cluster_label_cap)
