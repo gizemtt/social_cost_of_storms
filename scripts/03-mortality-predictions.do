@@ -6,7 +6,7 @@ args Y m fixedpop
 
 use output/plotting_deaths.dta, clear
 
-egen event_id = group(storm_serial_id adm_name)
+egen event_id = group(storm_serial_id cluster_label)
 lab var event_id "unique state-by-storm identifier"
 
 tsset event_id  modate 
@@ -26,13 +26,13 @@ drop x
 replace storm_serial_id = storm_name_2
 drop storm_name_2
 
-encode adm_name, gen(adm_id)
+encode cluster_label, gen(adm_id)
 bysort event_id: egen x = max(adm_id)
 label values x adm_id
-decode x, gen(adm_name_2)
+decode x, gen(cluster_label_2)
 drop x
-replace adm_name = adm_name_2
-drop adm_name_2
+replace cluster_label = cluster_label_2
+drop cluster_label_2
 
 drop adm_id
 drop storm_name_id
@@ -42,22 +42,22 @@ drop storm_name_id
 
 // --------------------------- MERGE IN POPULATION DATA
 
-order adm_name modate
-sort adm_name modate
-merge m:1 adm_name modate using output/population_data_for_plotting.dta
+order cluster_label modate
+sort cluster_label modate
+merge m:1 cluster_label modate using output/population_data_for_plotting.dta
 plot event_id modate if _merge == 3
 keep if _merge == 3 | _merge == 1 // population data is not available prior to 1930
 drop _merge
 
 // --------------------------- MERGE IN BETA DATA
 
-order adm_name modate
-sort adm_name modate
+order cluster_label modate
+sort cluster_label modate
 if "`Y'"=="tdths_ttpop" {
-merge m:1 adm_name modate using output/beta/`m'_`Y'.dta
+merge m:1 cluster_label modate using output/beta/`m'_`Y'.dta
 }
 else {
-merge m:1 adm_name modate using output/beta/`m'_dths`Y'.dta	
+merge m:1 cluster_label modate using output/beta/`m'_dths`Y'.dta	
 }
 plot event_id modate if _merge == 3
 
@@ -125,7 +125,7 @@ di as err "collapsing mortality by state"
 
 //truncate at 0
 replace mort = 0 if mort<0
-collapse (sum) mort, by(adm_name)
+collapse (sum) mort, by(cluster_label)
 
 save output/mortality_predict_state.dta, replace
 restore

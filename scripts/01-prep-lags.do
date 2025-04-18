@@ -7,6 +7,8 @@ use data/DATA_hurricane_mortality_temp_month_state_19302015_state.dta, clear
 
 keep if inlist(stfips, 48, 22) // 🔸 Keep only Texas data
 
+gen cluster_label = "CLUSTER_" + string(stfips, "%02.0f")
+
 //----------------------------------------- constructing normal lags
 forvalues i = 54(-1)1 {
 	quietly{
@@ -26,16 +28,16 @@ save output/full_data_for_regression.dta, replace /* THIS IS THE MAIN DATASET FO
 
 use "output/full_data_for_regression.dta", clear
 
-keep month year adm_name totalpop
+keep month year cluster_label totalpop
 
 gen modate = (year-1900)*12 + month
 lab var modate "months since jan 1900 = 1"
 drop if year < 1953
 
-replace adm_name = upper(adm_name)
-sort adm_name modate
+replace cluster_label = upper(cluster_label)
+sort cluster_label modate
 
-drop if adm_name==""
+drop if cluster_label==""
 
 save "output/population_data_for_plotting.dta", replace
 
@@ -49,7 +51,7 @@ use "output/full_data_for_regression.dta", clear
 egen maxs_mean_st = mean(maxs), by(stfips)
 
 xtile pct = maxs_mean_st, n(4)
-collapse (mean) pct, by(adm_name)
+collapse (mean) pct, by(cluster_label)
 save output/pct_maxs.dta, replace
 
 
@@ -62,11 +64,13 @@ gen modate = (year-1900)*12 + month
 lab var modate "months since jan 1900 = 1"
 drop if year < 1953 | year > 2015
 
-rename adm_name adm_name_cap
-gen adm_name = upper(adm_name_cap)
-drop adm_name_cap
+gen cluster_label = "CLUSTER_" + string(stfips, "%02.0f")
 
-merge m:1 adm_name using output/pct_maxs.dta, keep(3) nogen //just keep the matches
+rename cluster_label cluster_label_cap
+gen cluster_label = upper(cluster_label_cap)
+drop cluster_label_cap
+
+merge m:1 cluster_label using output/pct_maxs.dta, keep(3) nogen //just keep the matches
 
 gen firstdate_flag = .
 egen min_date = min(modate)

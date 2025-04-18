@@ -39,7 +39,7 @@ foreach Y of loc outcome_list {
 			i.modate ///
 		)
 	estimates save output/beta/m_linear_tdths_ttpop.ster, replace
-	
+
 	local model_list "m_linear"
 	foreach m of loc model_list {
 		
@@ -59,7 +59,7 @@ foreach Y of loc outcome_list {
 			di "model `z'"
 		}
 		
-		keep adm_name modate pct_* year month
+		keep cluster_label modate pct_* year month
 
 		forvalues q=1/`z' {
 
