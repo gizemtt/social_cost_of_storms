@@ -1,4 +1,5 @@
 cd "C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms"
+set maxvar 32767
 
 timer clear
 
