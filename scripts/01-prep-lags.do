@@ -10,7 +10,7 @@ destring stfips, replace force
 
 sort countyfips modate
 
-keep if inlist(stfips, 48, 22) // 🔸 Keep only Texas data
+* keep if inlist(stfips, 48, 22) // 🔸 Keep only Texas data
 
 gen cluster_label = "CLUSTER_" + string(countyfips, "%02.0f")
 
@@ -69,10 +69,7 @@ save output/pct_maxs.dta, replace
 insheet using "data/panel_by_storm__NA_USA_density_8_yr_1930_2018.csv", clear
 destring countyfips, replace force
 destring stfips, replace force
-keep if inlist(stfips, 48, 22) // 🔸 Keep only Texas data
-
-rename stormid storm_serial_id
-rename stormname storm_name
+* keep if inlist(stfips, 48, 22) // 🔸 Keep only Texas data
 
 gen modate = (year-1900)*12 + month
 lab var modate "months since jan 1900 = 1"
