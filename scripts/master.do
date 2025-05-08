@@ -18,11 +18,14 @@ do "scripts/02-run-regressions.do"
 timer off 3
 timer list 3
 
+do "scripts\ster_to_csv.do"
+
+
 // 02 - MORTALITY ESTIMATION
-timer on 4
-do "scripts/03-mortality-predictions.do"
-timer off 4
-timer list 4
+//timer on 4
+//do "scripts/03-mortality-predictions.do"
+//timer off 4
+//timer list 4
 
 // Stop total timer
 timer off 1
@@ -31,6 +34,6 @@ timer off 1
 di "----------------------------------"
 di "   ⏱️ Timing Summary (seconds)"
 di "----------------------------------"
-foreach i in 1 2 3 4 {
+foreach i in 1 2 3 {
     timer list `i'
 }
