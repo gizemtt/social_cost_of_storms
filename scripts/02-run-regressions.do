@@ -20,12 +20,12 @@ gen tavg_2 = tavg^2
 egen _im_ = group(countyfips month)
 
 //--------------------------------------------------Run regressions
+ssc install reghdfe, replace
+ssc install ftools, replace
 
 loc outcome_list "tdths_ttpop"
 foreach Y of loc outcome_list {	
 	// Run m_linear regression using reghdfe
-	ssc install reghdfe, replace
-	ssc install ftools, replace
 
 	reghdfe tdths_ttpop _LL*_maxs, ///
 		absorb( ///
@@ -34,7 +34,6 @@ foreach Y of loc outcome_list {
 			i.countyfips#c.modate_3 i.countyfips#c.modate_4 ///
 			i.countyfips#c.modate_5 i.countyfips#c.modate_6 ///
 			i.countyfips#c.modate_7 i.countyfips#c.modate_8 ///
-			i._im_#c.modate_1 ///
 			i.countyfips#c.tavg i.countyfips#c.tavg_2 ///
 			i.modate ///
 		)
