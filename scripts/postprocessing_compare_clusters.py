@@ -16,8 +16,8 @@ base_dir = r"C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms"
 # cluster_counts = [35]  # Must align with `dirs`
 # =============================================================================
 
-dirs = [os.path.join(base_dir,'Only wind speed clustered - 90percent of max height'), os.path.join(base_dir,'90withighertermsstatelevel')]  # Add paths as needed
-cluster_counts = [71, 70]  # Must align with `dirs`
+dirs = [os.path.join(base_dir,'output')]  # Add paths as needed
+cluster_counts = [228]  # Must align with `dirs`
 
 # Initialize lists
 r2_vals = []
@@ -67,7 +67,7 @@ beta_all = pd.concat(beta_dfs)
 # --- New Section: Generate Summary Table ---
 start_year = 1953
 end_year = 2018
-lags =  180
+lags =  180/2
 summary = []
 
 # already have beta_all merged across clusters
@@ -90,7 +90,7 @@ for cluster in cluster_counts:
     plt.title(f'β vs Lag with 95% CI - {cluster} Clusters')
     plt.grid(True)
     plt.legend()
-    plt.ylim(-0.06, 0.08)
+    #plt.ylim(-0.06, 0.08)
     plt.tight_layout()
     plt.show()
 

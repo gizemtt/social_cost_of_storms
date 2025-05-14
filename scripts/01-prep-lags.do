@@ -2,7 +2,7 @@
 //--------------------------------------------------- prepping temp and lag variables
 //------------------------------------------------------------------------------
 
-//monthly data during 1851-2015
+//monthly data during 1948-2018
 use data/DATA_hurricane_mortality_temp_month_county_19482018.dta, clear
 
 destring countyfips, replace force
@@ -64,7 +64,7 @@ collapse (mean) pct, by(cluster_label)
 save output/pct_maxs.dta, replace
 
 
-//monthly data during 1851-2015
+//monthly data during 1948-2018
 
 insheet using "data/panel_by_storm__NA_USA_density_8_yr_1930_2018.csv", clear
 destring countyfips, replace force
@@ -73,7 +73,7 @@ destring stfips, replace force
 
 gen modate = (year-1900)*12 + month
 lab var modate "months since jan 1900 = 1"
-drop if year < 1953 | year > 2015
+drop if year < 1953 | year > 2018
 
 gen cluster_label = "CLUSTER_" + string(countyfips, "%02.0f")
 
