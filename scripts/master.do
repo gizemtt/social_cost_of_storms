@@ -18,8 +18,8 @@ do "scripts/02-run-regressions.do"
 timer off 3
 timer list 3
 
-do "scripts\ster_to_csv.do"
-
+// do "scripts\ster_to_csv.do"
+do "scripts\ster.do"
 
 // 02 - MORTALITY ESTIMATION
 //timer on 4
