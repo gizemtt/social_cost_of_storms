@@ -34,6 +34,7 @@ foreach Y of loc outcome_list {
 			i.countyfips#c.modate_3 i.countyfips#c.modate_4 ///
 			i.countyfips#c.modate_5 i.countyfips#c.modate_6 ///
 			i.countyfips#c.modate_7 i.countyfips#c.modate_8 ///
+			i._im_#c.modate_1 ///
 			i.countyfips#c.tavg i.countyfips#c.tavg_2 ///
 			i.modate ///
 		)
