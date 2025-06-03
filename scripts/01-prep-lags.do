@@ -31,6 +31,16 @@ forvalues i = 0/180 {
 	}
 }
 
+gen X0 = 0
+gen X1 = 0
+gen X2 = 0
+
+forvalues l = 0/180 {
+    replace X0 = X0 + _LL`l'_maxs
+    replace X1 = X1 + `l' * _LL`l'_maxs
+    replace X2 = X2 + `= `l'^2' * _LL`l'_maxs
+}
+
 save output/full_data_for_regression.dta, replace /* THIS IS THE MAIN DATASET FOR ALL REGRESSIONS */
 
 //-------------------------------------------------------------saving population data for merging into plotting data set
