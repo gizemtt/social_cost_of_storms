@@ -6,6 +6,19 @@
 
 use output/full_data_for_regression.dta, clear
 
+* Merge all obs; keep match status
+merge m:1 countyfips using "data/national_clustering.dta"
+
+/* * Inspect merge results
+tab _merge
+* Optional: check unmatched counties
+list countyfips if _merge != 3
+* Optional: label _merge variable for clarity
+label define mrg 1 "master only" 2 "using only" 3 "matched"
+label values _merge mrg
+* Export as CSV
+export delimited using "output/full_data_for_regression2.csv", replace */
+
 *centering modate on sample
 sum modate if year >= 1968
 replace modate = modate - round(r(mean))
