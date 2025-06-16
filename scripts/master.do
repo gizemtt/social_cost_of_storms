@@ -6,26 +6,23 @@ timer clear
 // Start total timer
 timer on 1
 
-// 00 - PREP
+// 01 - PREP
 timer on 2
 do "scripts/01-prep-lags.do"
 timer off 2
 timer list 2
 
-// 01 - REGRESSION
+// 02 - REGRESSION
 timer on 3
 do "scripts/02-run-regressions.do"
 timer off 3
 timer list 3
 
-// do "scripts\ster_to_csv.do"
-do "scripts\ster.do"
-
-// 02 - MORTALITY ESTIMATION
-//timer on 4
-//do "scripts/03-mortality-predictions.do"
-//timer off 4
-//timer list 4
+// 03 - postprocess
+timer on 4
+do "scripts\03-postprocess-coefficients.do"
+timer off 4
+timer list 4
 
 // Stop total timer
 timer off 1
@@ -34,6 +31,6 @@ timer off 1
 di "----------------------------------"
 di "   ⏱️ Timing Summary (seconds)"
 di "----------------------------------"
-foreach i in 1 2 3 {
+foreach i in 1 2 3 4 {
     timer list `i'
 }
