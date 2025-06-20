@@ -7,7 +7,7 @@
 use output/full_data_for_regression.dta, clear
 
 * Merge all obs; keep match status
-merge m:1 countyfips using "data/national_clustering.dta"
+* merge m:1 countyfips using "data/national_clustering.dta"
 
 /* * Inspect merge results
 tab _merge
@@ -32,17 +32,12 @@ gen tavg_2 = tavg^2
 
 egen _im_ = group(countyfips month)
 
-/* loc placebo_leads ""
-forvalues i = 1/6 {
+loc placebo_leads ""
+forvalues i = 1/9 {
     loc placebo_leads "`placebo_leads' c._FF`i'_maxs#i.countyfips"
-} */
+}
 
 * use cluster_code instead of countyfips if you would like to use cluster of counties for that term!
-* Define interaction terms
-local placebo_leads ""
-foreach m of local placebo_months {
-    local placebo_leads "`placebo_leads' c._FF`m'_maxs#i.countyfips"
-}
 
 * export delimited using "output/full_data_for_regression2.csv", replace
 
@@ -51,7 +46,8 @@ ssc install reghdfe, replace
 ssc install ftools, replace
 
 * use cluster_code instead of countyfips if you would like to use cluster of counties for that term!
-reghdfe tdths_ttpop c.X0#i.countyfips c.X1#i.countyfips c.X2#i.countyfips `placebo_leads', ///
+
+reghdfe tdths_ttpop c.X0#i.countyfips c.X1#i.countyfips c.X2#i.countyfips, ///
 	absorb( ///
 		i.countyfips#i.month ///
 		i.countyfips#c.modate_1 i.countyfips#c.modate_2 ///
