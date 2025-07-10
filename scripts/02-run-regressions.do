@@ -42,8 +42,8 @@ forvalues i = 1/9 {
 * export delimited using "output/full_data_for_regression2.csv", replace
 
 //--------------------------------------------------Run regressions
-ssc install reghdfe, replace
-ssc install ftools, replace
+* ssc install reghdfe, replace
+* ssc install ftools, replace
 
 * use cluster_code instead of countyfips if you would like to use cluster of counties for that term!
 
