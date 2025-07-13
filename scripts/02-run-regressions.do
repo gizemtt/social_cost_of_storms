@@ -7,7 +7,7 @@
 use output/full_data_for_regression.dta, clear
 
 * Merge all obs; keep match status
-* merge m:1 countyfips using "data/national_clustering.dta"
+merge m:1 countyfips using "data/national_clustering.dta"
 
 /* * Inspect merge results
 tab _merge
@@ -46,8 +46,9 @@ forvalues i = 1/9 {
 * ssc install ftools, replace
 
 * use cluster_code instead of countyfips if you would like to use cluster of counties for that term!
+gen tdths_ttpop_asinh = asinh(tdths_ttpop)
 
-reghdfe tdths_ttpop c.X0#i.countyfips c.X1#i.countyfips c.X2#i.countyfips, ///
+reghdfe tdths_ttpop_asinh i.cluster_code#c.X0 i.cluster_code#c.X1 i.cluster_code#c.X2, ///
 	absorb( ///
 		i.countyfips#i.month ///
 		i.countyfips#c.modate_1 i.countyfips#c.modate_2 ///
