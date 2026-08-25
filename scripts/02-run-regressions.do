@@ -6,22 +6,6 @@
 
 use output/full_data_for_regression.dta, clear
 
-* Merge all obs; keep match status
-* merge m:1 countyfips using "data/national_clustering.dta"
-* rename _merge _merge_weights
-* merge m:1 countyfips year month using "output/beta/fgls_weights.dta"
-
-
-/* * Inspect merge results
-tab _merge
-* Optional: check unmatched counties
-list countyfips if _merge != 3
-* Optional: label _merge variable for clarity
-label define mrg 1 "master only" 2 "using only" 3 "matched"
-label values _merge mrg
-* Export as CSV
-export delimited using "output/full_data_for_regression2.csv", replace */
-
 *centering modate on sample
 sum modate if year >= 1968
 replace modate = modate - round(r(mean))
@@ -40,19 +24,11 @@ forvalues i = 1/9 {
     loc placebo_leads "`placebo_leads' c._FF`i'_maxs#i.countyfips"
 }
 
-* use cluster_code instead of countyfips if you would like to use cluster of counties for that term!
-
-* export delimited using "output/full_data_for_regression2.csv", replace
-
 //--------------------------------------------------Run regressions
 * ssc install reghdfe, replace
 * ssc install ftools, replace
 
-* use cluster_code instead of countyfips if you would like to use cluster of counties for that term! [aw=w_fgls] [aw=totalpop] dths_tot tdths_ttpop . reghdfe tdths_ttpop ibn.countyfips#c.X0 ibn.countyfips#c.X1 ibn.countyfips#c.X2 [aw=totalpop], ///
-
-//-------------------------------------------------- Run regression. ibn.countyfips#c.X_nature  ibn.svi_high#c.X_nature ///    ibn.svi_q#c.X_future72 ///  replace svi_high = 1 if inlist(svi_q, 2, 3)
 bysort countyfips: egen mean_svi_county = mean(svi)
-
 preserve
     keep countyfips mean_svi_county
     duplicates drop

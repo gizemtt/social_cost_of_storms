@@ -131,4 +131,7 @@ output/figures/
 
 ## Data availability
 
-Code is available in this GitHub repository. Input and replication datasets are archived separately on Zenodo.
+Code is available in this GitHub repository. Input and replication datasets are archived separately on [Zenodo](https://doi.org/10.5281/zenodo.22097263).
+
+## Citation
+Cite the accompanying manuscript and the Zenodo dataset record. Full publication information will be added after acceptance.
