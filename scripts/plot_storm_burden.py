@@ -23,7 +23,8 @@ from matplotlib.patches import Patch
 # User settings
 # =============================================================================
 
-base_dir = r"C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms"
+from pathlib import Path
+base_dir = Path(__file__).resolve().parents[1]
 data_dir = os.path.join(base_dir, "data")
 output_dir = os.path.join(base_dir, "output")
 beta_dir = os.path.join(output_dir, "beta")

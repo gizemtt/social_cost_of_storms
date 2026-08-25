@@ -39,15 +39,14 @@ from scipy.stats import chi2
 from statsmodels.tsa.stattools import adfuller, acf
 from statsmodels.graphics.tsaplots import plot_acf
 from numpy.linalg import inv, pinv, eigvalsh, LinAlgError
-
+from pathlib import Path
 warnings.filterwarnings("ignore", category=FutureWarning)
-
 
 # =============================================================================
 # User settings
 # =============================================================================
 
-base_dir = r"C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms"
+base_dir = Path(__file__).resolve().parents[1]
 output_dir = os.path.join(base_dir, "output")
 beta_dir = os.path.join(output_dir, "beta")
 

@@ -3,9 +3,10 @@
 import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-
+from pathlib import Path
+base_dir = Path(__file__).resolve().parents[1]
 # Update these paths to your actual exported single-panel figures
-fig_dir = r"C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms\output\actual\resid_plots"
+fig_dir = os.path.join(base_dir, "output", "actual", "resid_plots")
 
 panel_files = {
     "a": os.path.join(fig_dir, "standardized_residuals_vs_fitted.png"),

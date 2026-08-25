@@ -40,9 +40,10 @@ Table~\ref{tbl:randomization_group_tests}. No randomization CSV is read.
 
 Run example
 -----------
-python scripts/plot_randomization_mean_beta_estimates.py --base-dir "C:/Users/toplu/Documents/GithubRepositories/social_cost_of_storms"
+python scripts/plot_randomization_mean_beta_estimates.py
+
 python scripts/plot_randomization_mean_beta_estimates.py ^
-  --base-dir "C:/Users/toplu/Documents/GithubRepositories/social_cost_of_storms" ^
+  --base-dir "..." ^
   --output-subdir output ^
   --actual-folder actual ^
   --placebo-folder placebo ^
@@ -65,6 +66,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
 
+from pathlib import Path
 
 # =============================================================================
 # Plot style settings
@@ -1009,8 +1011,9 @@ def resolve_output_fig_dir(base_dir: Path, output_dir: Path, output_fig_dir_arg:
 
 
 def main() -> None:
+    repo_dir = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser(description="Plot actual SVI-group TC response and future-exposure placebo leads.")
-    parser.add_argument("--base-dir", type=str, required=True, help="Project base directory.")
+    parser.add_argument("--base-dir", type=str, default=repo_dir, help="Project base directory.")
     parser.add_argument("--output-subdir", type=str, default="output")
     parser.add_argument("--actual-folder", type=str, default="actual", help="Folder name or path containing actual/beta outputs.")
     parser.add_argument("--placebo-folder", type=str, default="placebo", help="Folder name or path containing placebo/beta outputs.")

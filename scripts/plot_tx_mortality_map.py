@@ -7,7 +7,7 @@
 # Only the 42 estimation-sample counties are colored.
 #
 # Output:
-#   C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms\output\figures\tx_mortality_map.png
+#  ...\output\figures\tx_mortality_map.png
 
 import os
 import re
@@ -17,19 +17,18 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
+from pathlib import Path
 
 # =============================================================================
 # User settings
 # =============================================================================
 
-repo_dir = r"C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms"
+repo_dir = Path(__file__).resolve().parents[1]
 data_dir = os.path.join(repo_dir, "data")
 output_dir = os.path.join(repo_dir, "output")
 beta_dir = os.path.join(output_dir, "beta")
 fig_output_dir = os.path.join(output_dir, "figures")
 os.makedirs(fig_output_dir, exist_ok=True)
-
-mortality_data_dir = r"C:\Users\toplu\Desktop\Codes\mortality burden\data"
 
 storm_panel_file = os.path.join(
     data_dir,
@@ -39,8 +38,7 @@ storm_panel_file = os.path.join(
 regression_data_file = os.path.join(output_dir, "full_data_for_regression.dta")
 
 stata_panel_file = os.path.join(
-    mortality_data_dir,
-    "inputs for stata",
+    data_dir,
     "DATA_hurricane_mortality_temp_month_county_19482018.dta"
 )
 
@@ -48,7 +46,7 @@ coef_file_dta = os.path.join(beta_dir, "coefficients_county_nature_future.dta")
 coef_file_csv = os.path.join(beta_dir, "coefficients_region_poly.csv")
 
 county_shapefile = os.path.join(
-    mortality_data_dir,
+    data_dir,
     "county_boundaries",
     "tl_2018_us_county",
     "tl_2018_us_county.shp"

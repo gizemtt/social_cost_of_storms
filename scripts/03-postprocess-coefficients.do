@@ -1,5 +1,3 @@
-* cd "C:\Users\toplu\Documents\GithubRepositories\social_cost_of_storms\state_beta_l_i_incomplete"
-
 //---------------------------------------------------------------------------------
 // 03-postprocess-coefficients.do
 // Extract model coefficients and variance-covariance matrix
