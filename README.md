@@ -100,7 +100,7 @@ Validation plots and supporting files are saved under:
 output/figures/resid_plots/
 ```
 
-The manuscript diagnostic panel combines:
+The paper diagnostic panel combines:
 
 ```text
 standardized_residuals_vs_fitted.png
@@ -131,7 +131,13 @@ output/figures/
 
 ## Data availability
 
-Code is available in this GitHub repository. Input and replication datasets are archived separately on [Zenodo](https://doi.org/10.5281/zenodo.22097263).
+Code is available in this GitHub repository. The input and replication datasets are archived separately on [Zenodo](https://doi.org/10.5281/zenodo.22097263).
+
+The paper focuses on the Texas sample. However, `From_raw_data_to_panel_data_35_States.zip` also contains processed county-month datasets for 35 U.S. jurisdictions—34 states and the District of Columbia. These additional datasets are not used in the main Texas analysis but are provided to support future research.
+
+The archive covers Alabama, Arkansas, Connecticut, Delaware, the District of Columbia, Florida, Georgia, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Mississippi, Missouri, Nebraska, New Hampshire, New Jersey, New York, North Carolina, Ohio, Oklahoma, Pennsylvania, Rhode Island, South Carolina, Tennessee, Texas, Vermont, Virginia, West Virginia, and Wisconsin.
+
+Constructing the analysis-ready panel from the raw data requires substantial data collection, harmonization of historical county identifiers and boundaries, and imputation of suppressed mortality counts. The complete raw-data-to-panel workflow is documented in the separate [Tropical Cyclone Mortality Data Construction repository](https://github.com/gizemtt/Tropical-Cyclone-Mortality-data-construction).
 
 ## Citation
-Cite the accompanying manuscript and the Zenodo dataset record. Full publication information will be added after acceptance.
+If you use any data from the Zenodo archive or any code from either repository, please cite both the accompanying manuscript and the [Zenodo dataset](https://doi.org/10.5281/zenodo.22097263).
