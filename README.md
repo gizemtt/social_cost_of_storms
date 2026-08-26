@@ -1,6 +1,13 @@
 # Social Vulnerability and Long-Run Tropical Cyclone Mortality
 
-Replication code for **“Social Vulnerability and Long-Run Tropical Cyclone Mortality: Evidence from Texas.”** Stata prepares the data and estimates the models; Python performs validation and creates the figures.
+Replication code for **“Social Vulnerability and Long-Run Tropical Cyclone Mortality: Evidence from Texas.”** Stata prepares the analysis data and estimates the models, while Python performs validation and generates the figures.
+
+The paper focuses on the Texas sample. However, the accompanying data archive also contains processed county-month datasets for 35 U.S. jurisdictions—34 states and the District of Columbia. These additional datasets are not used in the main Texas analysis but are provided to support future research. See the [Data availability](#data-availability) section for further information.
+
+
+# Social Vulnerability and Long-Run Tropical Cyclone Mortality
+
+Replication code for **“Social Vulnerability and Long-Run Tropical Cyclone Mortality: Evidence from Texas.”** Stata prepares the data and estimates the models; Python performs validation and creates the figures. Paper is Texas sample. However, the datasets provided also contain processed county-month datasets for 35 U.S. states. These additional datasets are not used in the main Texas analysis but are provided to support future research. More information is in the data availability section at the end.
 
 ## Repository structure
 
